@@ -1,8 +1,8 @@
 import Button from 'react-bootstrap/Button';
 const Sidebar = ({
     notes,
-    onAddNote,
-    onDeleteNote,
+    addNote,
+    deleteNote,
     activeNote,
     setActiveNote,
   }) => {
@@ -12,8 +12,11 @@ const Sidebar = ({
       
       <div className="sidebar">
         <div className="sidebartete">
+          {/* Titre de la sidebar */}
           <h1>Carnet de notes</h1>
-          <Button variant="primary" onClick={onAddNote}>Ajouter</Button>{' '}
+
+          {/* Bouton ajouter*/}
+          <Button variant="primary" onClick={addNote}>Ajouter</Button>{' '}
         </div>
         <div className="sidebarnote">
           {sortedNotes.map(({ id, title, body }, i) => (
@@ -21,9 +24,12 @@ const Sidebar = ({
               className={`sidebar2 ${id === activeNote && "active"}`}
               onClick={() => setActiveNote(id)}
             >
+              {/* Titre */}
               <div className="titre-sidebar">
                 <strong>{title}</strong>
-                <Button variant="danger"onClick={(e) => onDeleteNote(id)}>Supprimer</Button>{' '}
+                
+                {/* Bouton supprimer */}
+                <Button variant="danger"onClick={(e) => deleteNote(id)}>Supprimer</Button>{' '}
               </div>
               <p>{body && body.substr(0, 100) + "..."}</p>
             </div>
