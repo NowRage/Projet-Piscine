@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
+  // Stockage de note
   const [notes, setNotes] = useState(
     localStorage.notes ? JSON.parse(localStorage.notes) : []
   );
@@ -15,22 +16,22 @@ function App() {
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
-  
-  const onAddNote = () => {
+  // Ajout de note
+  const addNote = () => {
     const newNote = {
       id: uuid(),title: "Note sans titre",body: "",
       
     };
-
+    // A voir !!!!!!
     setNotes([newNote, ...notes]);
     setActiveNote(newNote.id);
   };
-
-  const onDeleteNote = (noteId) => {
+    // Suppression des notes
+  const deleteNote = (noteId) => {
     setNotes(notes.filter(({ id }) => id !== noteId));
   };
-
-  const onUpdateNote = (updatedNote) => {
+  
+  const majNote = (updatedNote) => {
     const updatedNotesArr = notes.map((note) => {
       if (note.id === updatedNote.id) {
         return updatedNote;
@@ -48,16 +49,17 @@ function App() {
 
   return (
     <div className="App">
+      {/* Apl des fonction */}
       <Sidebar
         notes={notes}
-        onAddNote={onAddNote}
-        onDeleteNote={onDeleteNote}
+        addNote={addNote}
+        deleteNote={deleteNote}
         activeNote={activeNote}
         setActiveNote={setActiveNote}
       />
-      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
+      <Main activeNote={getActiveNote()} majNote={majNote} />
     </div>
   );
 }
-
+// liaison avec function
 export default App;
